@@ -14,7 +14,7 @@ switch(command){
     request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function(error, response, body){
         console.log("error: ", error);
         console.log("statusCode: ", response && response.statusCode);
-        console.log("body:" + body;
+        console.log("body:" + body);
     });
     break;
     case "spotify-this-song":

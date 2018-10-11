@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/ggoldammer/LIRI-bot/issues"
   },
-  "homepage": "https://github.com/ggoldammer/LIRI-bot#readme"
+  "homepage": "https://github.com/ggoldammer/LIRI-bot#readme",
+  "dependencies": {
+    "dotenv": "^6.1.0",
+    "request": "^2.88.0"
+  }
 }
