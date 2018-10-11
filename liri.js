@@ -1,5 +1,7 @@
 // require("dotenv").config();
 let request = require("request");
+require("dotenv").config();
+
 
 // let spotify = new Spotify(keys.spotify);
 let command = process.argv[2];
