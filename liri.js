@@ -14,14 +14,14 @@ let search = process.argv[3];
 switch (command) {
     case "concert-this":
         request("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp", function (error, response, body) {
-            let concertInfo = JSON.parse(body)[0];
+            let concertInfo = body[0];
             console.log("error: ", error);
             console.log("statusCode: ", response && response.statusCode);
             console.log("body: " + concertInfo);
         });
         break;
     case "spotify-this-song":
-        
+
         break;
     case "movie-this":
 
