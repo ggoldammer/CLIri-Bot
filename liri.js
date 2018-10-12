@@ -2,30 +2,33 @@
 let request = require("request");
 require("dotenv").config();
 
+let keys = require("./keys.js");
+let Spotify = require("node-spotify-api");
+var spotify = new Spotify(keys.spotify);
+
 
 // let spotify = new Spotify(keys.spotify);
 let command = process.argv[2];
-let query = process.argv[3];
+let search = process.argv[3];
 
-switch(command){
+switch (command) {
     case "concert-this":
-    let artist = process.argv[3];
-
-    request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function(error, response, body){
-        console.log("error: ", error);
-        console.log("statusCode: ", response && response.statusCode);
-        console.log("body:" + body);
-    });
-    break;
+        request("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp", function (error, response, body) {
+            let concertInfo = JSON.parse(body)[0];
+            console.log("error: ", error);
+            console.log("statusCode: ", response && response.statusCode);
+            console.log("body: " + concertInfo);
+        });
+        break;
     case "spotify-this-song":
-
-    break;
+        
+        break;
     case "movie-this":
 
-    break;
+        break;
     case "do-what-it-says":
 
-    break;
+        break;
     default:
-    console.log("Incorrect command. The following commands are:\n concert-this [insert song/band name]\nspotify-this-song [insert song name]\nmovie-this [insert movie name here]\ndo-what-it-says");
+        console.log("Incorrect command. The following commands are:\n concert-this [insert song/band name]\nspotify-this-song [insert song name]\nmovie-this [insert movie name here]\ndo-what-it-says");
 }
