@@ -29,12 +29,12 @@ switch (command) {
                     'Location: ' + concertInfo[i].venue.city + ', ' +
                     concertInfo[i].venue.country);
 
-                var partyDate = concertInfo[i].datetime.split('T')[0];
+                var concertDate = concertInfo[i].datetime.split('T')[0];
 
-                partyDate = moment(partyDate, 'YYYY-MM-DD').format('MMM DD, YYYY');
+                concertDate = moment(concertDate, 'YYYY-MM-DD').format('MMM DD, YYYY');
 
-                if (partyDate) {
-                    console.log('Date: ' + partyDate + '\n');
+                if (concertDate) {
+                    console.log('Date: ' + concertDate + '\n');
                 } else {
                     console.log('Date: TBA');
                 }
