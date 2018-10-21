@@ -1,7 +1,7 @@
 # CLIri-bot
 ## Summary & Goal
 
-CLIri is a Command Line Interface (CLI) bot, which is a command based assistant that returns relevant information based on the given command.
+CLIri is a Command Line Interface (CLI) bot, which is a command based assistant that returns relevant information based on the given command. The name may or may not be a play on words with the CLI acronym and Apple's Siri assistant :)
 
 This was a Node.js project for the University of Arizona Coding Bootcamp.
 
@@ -21,6 +21,7 @@ SPOTIFY_SECRET=your-spotify-secret
 You'll want to make sure you replace the `your-spotify-id` and `your-spotify-secret` with your own spotify API key information. You may create your Spotify API keys here:
 
 https://developer.spotify.com/dashboard/login
+
 
 3. Run `npm install` to install package.json
 
