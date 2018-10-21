@@ -69,8 +69,8 @@ function movieSearch(search) {
 
         console.log("\nMovie Title: " + results.Title);
         console.log("Release Year: " + results.Year);
-        console.log("IMDB Rating: " + results.Ratings[0].value);
-        console.log("Rotten Tomatoes Rating: " + results.Ratings[1].value);
+        console.log("IMDB Rating: " + results.Ratings[0].Value);
+        console.log("Rotten Tomatoes Rating: " + results.Ratings[1].Value);
         console.log("Country Origin: " + results.Country);
         console.log("Language: " + results.Language);
         console.log("Plot: " + results.Plot);
@@ -94,9 +94,14 @@ function spotifySearch(search) {
 
 function concertSearch(search) {
     search.split(" ").join("+");
-    
+
     request("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp", function (error, response, body) {
         let concertInfo = JSON.parse(body);
+
+        if (concertInfo.length < 1){
+            console.log("No concert information is available for this band.");
+            return;
+        }
 
         for (let i = 0; i < 5 && i < concertInfo.length; i++) {
             console.log('Venue: ' + concertInfo[i].venue.name + '\n' +
