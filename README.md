@@ -7,7 +7,7 @@ This was a Node.js project for the University of Arizona Coding Bootcamp.
 
 ## How to Use CLIri Bot
 
-[CLICK HERE TO VIEW A VIDEO DEMONSTRATION OF THE WORKING APP.] (https://github.com/ggoldammer/CLIri-Bot/blob/master/Liri%20Bot%20Demo.webm)
+(CLICK HERE TO VIEW A VIDEO DEMONSTRATION OF THE WORKING APP.): https://github.com/ggoldammer/CLIri-Bot/blob/master/Liri%20Bot%20Demo.webm
 
 1. Make sure to clone this repo.
 
