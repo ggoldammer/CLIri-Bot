@@ -1,7 +1,7 @@
 # CLIri-bot
 ## Summary & Goal
 
-The CLIri is a Command Line Interface (CLI) bot, which is a command based assistant that returns relevant information based on the given command.
+CLIri is a Command Line Interface (CLI) bot, which is a command based assistant that returns relevant information based on the given command.
 
 This was a Node.js project for the University of Arizona Coding Bootcamp.
 
