@@ -9,7 +9,6 @@ let omdbAPI = "trilogy";
 
 var spotifyKeys = new Spotify(keys.spotify);
 
-
 let command = process.argv[2];
 //For loop below joins everything after index 2 into a string, allowing for multiple word inputs.
 let searchArray = [];
@@ -21,30 +20,33 @@ var search = searchArray.join(" ");
 switch (command) {
     // Search for Concert Info
     case "concert-this":
-        request("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp", function (error, response, body) {
-            let concertInfo = JSON.parse(body);
-
-            for (let i = 0; i < 5 && i < concertInfo.length; i++) {
-                console.log('Venue: ' + concertInfo[i].venue.name + '\n' +
-                    'Location: ' + concertInfo[i].venue.city + ', ' +
-                    concertInfo[i].venue.country);
-
-                var concertDate = concertInfo[i].datetime.split('T')[0];
-
-                concertDate = moment(concertDate, 'YYYY-MM-DD').format('MMM DD, YYYY');
-
-                if (concertDate) {
-                    console.log('Date: ' + concertDate + '\n');
-                } else {
-                    console.log('Date: TBA');
-                }
-            }
-        });
+        concertSearch(search);
         break;
     // Search for Spotify Info
     case "spotify-this-song":
         if (process.argv.length < 4) {
-            spotifyKeys.search({ type: 'track', query: "The Sign Ace of Base" }, function (err, data) {
+            search = "The Sign Ace of Base";
+            spotifySearch(search);
+            return;
+        }
+        spotifySearch(search);
+        break;
+    // Search for Movie Info
+    case "movie-this":
+        if (process.argv.length < 4) {
+            search = "Mr+Nobody";
+            movieSearch(search);
+            return;
+        }
+        movieSearch(search)
+        break;
+    // Randomly picks item from Random.txt
+    case "do-what-it-says":
+        fs.readFile("./random.txt", "utf8", function (err, data) {
+            let dataArray = data.split(",");
+
+            spotifyKeys.search({ type: 'track', query: dataArray[1] }, function (err, data) {
+
                 if (err) {
                     return console.log('Error: ' + err);
                 }
@@ -53,58 +55,61 @@ switch (command) {
                 console.log("Song Preview: " + data.tracks.items[0].preview_url);
                 console.log("Album: " + data.tracks.items[0].album.name + "\n");
             });
-            return;
-        }
-
-        spotifyKeys.search({ type: 'track', query: search }, function (err, data) {
-
-            if (err) {
-                return console.log('Error: ' + err);
-            }
-            console.log("\nArtist: " + data.tracks.items[0].artists[0].name);
-            console.log("Song Name: " + data.tracks.items[0].name);
-            console.log("Song Preview: " + data.tracks.items[0].preview_url);
-            console.log("Album: " + data.tracks.items[0].album.name + "\n");
-        });
-
-        break;
-    // Search for Movie Info
-    case "movie-this":
-        if (process.argv.length < 4) {
-            request("http://www.omdbapi.com/?apikey=" + omdbAPI + "&t=Mr+Nobody", function (err, response, body) {
-
-                let results = JSON.parse(body);
-
-                console.log("\nMovie Title: " + results.Title);
-                console.log("Release Year: " + results.Year);
-                console.log("IMDB Rating: " + results.Ratings[0].value);
-                console.log("Rotten Tomatoes Rating: " + results.Ratings[1].value);
-                console.log("Country Origin: " + results.Country);
-                console.log("Language: " + results.Language);
-                console.log("Plot: " + results.Plot);
-                console.log("Actors: " + results.Actors + "\n");
-            });
-            return;
-        }
-
-        request("http://www.omdbapi.com/?apikey=" + omdbAPI + "&t=" + search, function (err, response, body) {
-
-            let results = JSON.parse(body);
-
-            console.log("\nMovie Title: " + results.Title);
-            console.log("Release Year: " + results.Year);
-            console.log("IMDB Rating: " + results.Ratings[0].value);
-            console.log("Rotten Tomatoes Rating: " + results.Ratings[1].value);
-            console.log("Country Origin: " + results.Country);
-            console.log("Language: " + results.Language);
-            console.log("Plot: " + results.Plot);
-            console.log("Actors: " + results.Actors + "\n");
         });
         break;
-    // Search for
-    case "do-what-it-says":
 
-        break;
     default:
         console.log("Incorrect command. The following commands are:\n\nconcert-this [insert song/band name]\nspotify-this-song [insert song name]\nmovie-this [insert movie name here]\ndo-what-it-says");
+}
+
+function movieSearch(search) {
+    request("http://www.omdbapi.com/?apikey=" + omdbAPI + "&t=" + search, function (err, response, body) {
+
+        let results = JSON.parse(body);
+
+        console.log("\nMovie Title: " + results.Title);
+        console.log("Release Year: " + results.Year);
+        console.log("IMDB Rating: " + results.Ratings[0].value);
+        console.log("Rotten Tomatoes Rating: " + results.Ratings[1].value);
+        console.log("Country Origin: " + results.Country);
+        console.log("Language: " + results.Language);
+        console.log("Plot: " + results.Plot);
+        console.log("Actors: " + results.Actors + "\n");
+    });
+}
+
+function spotifySearch(search) {
+    spotifyKeys.search({ type: 'track', query: search }, function (err, data) {
+
+        if (err) {
+            return console.log('Error: ' + err);
+        }
+
+        console.log("\nArtist: " + data.tracks.items[0].artists[0].name);
+        console.log("Song Name: " + data.tracks.items[0].name);
+        console.log("Song Preview: " + data.tracks.items[0].preview_url);
+        console.log("Album: " + data.tracks.items[0].album.name + "\n");
+    });
+}
+
+function concertSearch(search) {
+    request("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp", function (error, response, body) {
+        let concertInfo = JSON.parse(body);
+
+        for (let i = 0; i < 5 && i < concertInfo.length; i++) {
+            console.log('Venue: ' + concertInfo[i].venue.name + '\n' +
+                'Location: ' + concertInfo[i].venue.city + ', ' +
+                concertInfo[i].venue.country);
+
+            var concertDate = concertInfo[i].datetime.split('T')[0];
+
+            concertDate = moment(concertDate, 'YYYY-MM-DD').format('MMM DD, YYYY');
+
+            if (concertDate) {
+                console.log('Date: ' + concertDate + '\n');
+            } else {
+                console.log('Date: TBA');
+            }
+        }
+    });
 }
