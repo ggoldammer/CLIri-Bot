@@ -93,6 +93,8 @@ function spotifySearch(search) {
 }
 
 function concertSearch(search) {
+    search.split(" ").join("+");
+    
     request("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp", function (error, response, body) {
         let concertInfo = JSON.parse(body);
 

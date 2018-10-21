@@ -38,6 +38,7 @@ https://developer.spotify.com/dashboard/login
 - Node.js
 - OMDB API
 - Spotify API
+- Bands In Town API
 - Moment.js NPM Package
 - FS NPM Package
 - Require NPM Package
